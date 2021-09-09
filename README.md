@@ -1,6 +1,52 @@
-# Dockerizing Django with Postgres, Gunicorn, Redis, Celery and Nginx
+# Django service that works via the VK API and duplicates group messages in VK to a group chat in Telegram.
+
+## Tasks
+1. Receives messages within the VK group
+1. Saves to Postgres database
+1. Sends a message to a group in Telegram
+
+### Required Field
+- `TG_TOKEN`: The Telegram Bot Token that you got from [@BotFather](https://t.me/BotFather)
+- `TG_CHAT_ID`: This is to authenticate your Telegram chat id. You can get this from [@getmyid_bot](https://t.me/getmyid_bot)
+
+- `VK_TOKEN`: The Vk Bot Token that you got from [vk.com](https://vk.com/dev/access_token)
 
 ## Want to use this project?
+
+- Using Docker-compose, you can edit and build your image in seconds:
+```
+sudo apt install docker-compose
+```
+- Build and run Docker image:
+```
+sudo docker-compose up
+```
+- After editing files with nano for example (nano start.sh):
+```
+sudo docker-compose build
+sudo docker-compose up
+```
+OR
+```
+sudo docker-compose up --build
+```
+- To stop Docker: 
+```
+sudo docker ps
+```
+```
+sudo docker stop id
+```
+- To clear the container (this will not affect the image):
+```
+sudo docker container prune
+```
+- To delete the image:
+```
+sudo docker image prune -a
+```
+- Video from Tortoolkit repo
+<p><a href="https://youtu.be/c8_TU1sPK08"> <img src="https://img.shields.io/badge/See%20Video-black?style=for-the-badge&logo=YouTube" width="160""/></a></p>
 
 ### Development
 
