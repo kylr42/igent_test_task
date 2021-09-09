@@ -17,8 +17,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'create_new_message': {
-        'task': 'mainapp.tasks.create_new_message',
+    'message_check': {
+        'task': 'mainapp.tasks.message_handler',
         'schedule': 15.0
     }
 }
