@@ -20,13 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", default='secret_key')
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='localhost 127.0.0.1 [::1]').split(" ")
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_celery_beat',
+
+    'mainapp.apps.MainappConfig',
 ]
 
 MIDDLEWARE = [
@@ -134,4 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CELERY CONFIG
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_TIMEZONE = os.environ.get("CELERY_TIMEZONE", "Europe/Moscow")
+CELERY_TASK_TRACK_STARTED = os.environ.get("CELERY_TASK_TRACK_STARTED", 'true').lower() == 'true'
+CELERY_TASK_TIME_LIMIT = eval(os.environ.get("CELERY_TASK_TIME_LIMIT", "30 * 60"))
 # CELERY CONFIG
