@@ -17,7 +17,9 @@ class Handler(TgApi, VkApi):
             message=data.get('message')
         )
 
-        return self.message % (data.get('send_time'), data.get('username'), data.get('message'))
+        return self.message % 
+    (data.get('send_time'), data.get('username'), 
+     data.get('message'))
 
 
 self = Handler()
@@ -27,13 +29,13 @@ server, key, ts = self.get_session()
 @shared_task
 def message_handler():
     updates = self.get_updates(server, key, ts)
-    if updates:
-        for element in updates:
-            if element[0] == 4:
-                data = self.parse_message(element)
-                try:
-                    message = self.save_message(data, ts)
-                    self.send_message(message)
-                except Exception as e:
-                    return e
+
+    for element in updates:
+        if element[0] == 4:
+            data = self.parse_message(element)
+            try:
+                message = self.save_message(data, ts)
+                self.send_message(message)
+            except Exception as e:
+                return e
     return 'OK'
